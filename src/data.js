@@ -16,11 +16,12 @@ export const insertData = async (tableName, data) => {
 
 export const getData = async (queryEmbedding) => {
   try {
-    console.log(`Querying for embedding`, JSON.stringify(queryEmbedding));
     const { data: documents, error } = await supabase.rpc(
       "match_content_vectors",
       {
         query_embedding: queryEmbedding,
+        match_threshold: 0.6,
+        match_count: 15,
       }
     );
 
@@ -29,8 +30,7 @@ export const getData = async (queryEmbedding) => {
       return [];
     }
 
-    console.log("Matching content:", documents);
-    return documents;
+    return documents.map((doc) => doc.content).join(" ");
   } catch (e) {
     console.error("Unexpected error:", e);
     return [];

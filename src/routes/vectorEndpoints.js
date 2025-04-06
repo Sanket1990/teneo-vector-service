@@ -41,11 +41,6 @@ router.post("/generateEmbeddings", express.text(), async (req, res) => {
       })
     );
 
-    console.log(
-      "Embeddings generated:",
-      JSON.stringify(embeddings[0].embedding)
-    );
-
     await insertData("content_vectors", embeddings);
 
     res.json({ message: "Embeddings created and stored successfully" });
@@ -59,8 +54,8 @@ router.post("/generateEmbeddings", express.text(), async (req, res) => {
  * @swagger
  * /getEmbeddings:
  *   post:
- *     summary: Get embeddings based on a query
- *     description: Accepts a plain text input and returns embeddings from the Supabase database based on the provided query.
+ *     summary: Get embeddings for a query
+ *     description: Accepts a query string, generates its vector embedding, and retrieves relevant data from the Supabase database.
  *     requestBody:
  *       required: true
  *       content:
@@ -68,7 +63,17 @@ router.post("/generateEmbeddings", express.text(), async (req, res) => {
  *           schema:
  *             type: string
  *             example: "Prague travel tips"
- */
+ *     responses:
+ *       200:
+ *         description: Embedding retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */ 
 router.post("/getEmbeddings", express.text(), async (req, res) => {
   try {
     const query = req.body;
@@ -79,9 +84,9 @@ router.post("/getEmbeddings", express.text(), async (req, res) => {
 
     const queryEmbedding = await createEmbedding(query);
 
-    await getData(queryEmbedding.embedding);
+    const data = await getData(queryEmbedding.embedding);
 
-    res.json({ message: "Embeddings retrieved successfully" });
+    res.json({ message: data });
   } catch (error) {
     console.error("Error processing request:", error);
     res.status(500).json({ error: "Internal server error" });

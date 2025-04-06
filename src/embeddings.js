@@ -1,19 +1,16 @@
-import { pipeline } from "@xenova/transformers";
+import { geminiAi } from "../config/gemini.js";
 
-export const createEmbedding = async (textChunk) => {
+export const createEmbedding = async (textChunk, config = {}) => {
   try {
-    const extractor = await pipeline(
-      "feature-extraction",
-      "Xenova/all-MiniLM-L6-v2",
-    );
-
-    const embedding = await extractor(textChunk, {
-      normalize: true,
-      pooling: "mean",
-      
+    const response = await geminiAi.models.embedContent({
+      model: "models/embedding-001",
+      contents: textChunk,
+      config: {
+        taskType: "SEMANTIC_SIMILARITY",
+      },
     });
 
-    return { content: textChunk, embedding: Array.from(embedding.data) ?? [] };
+    return { content: textChunk, embedding: response.embeddings[0].values };
   } catch (e) {
     console.log(e);
   }
