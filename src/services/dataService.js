@@ -1,20 +1,22 @@
-import { supabase } from "../config/supabase.js";
+import { supabase } from "../../config/supabase.js";
 
 export const insertData = async (tableName, data) => {
   try {
     const { error } = await supabase.from(tableName).insert(data);
 
     if (error) {
-      console.error(error);
-    } else {
-      console.log("Supabase table entries inserted");
+      console.error("Error inserting data into Supabase:", error);
+      throw error;
     }
+
+    console.log("Supabase table entries inserted");
   } catch (e) {
-    console.log(e);
+    console.error("Unexpected error during data insertion:", e);
+    throw e;
   }
 };
 
-export const getData = async (queryEmbedding) => {
+export const fetchData = async (queryEmbedding) => {
   try {
     const { data: documents, error } = await supabase.rpc(
       "match_content_vectors",
@@ -27,12 +29,12 @@ export const getData = async (queryEmbedding) => {
 
     if (error) {
       console.error("Supabase RPC error:", error);
-      return [];
+      throw error;
     }
 
     return documents.map((doc) => doc.content).join(" ");
   } catch (e) {
-    console.error("Unexpected error:", e);
-    return [];
+    console.error("Unexpected error during data fetch:", e);
+    throw e;
   }
 };

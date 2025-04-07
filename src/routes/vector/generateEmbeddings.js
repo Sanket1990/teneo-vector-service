@@ -1,10 +1,11 @@
 import express from "express";
-import { generateTextChunks } from "../../splitter.js";
-import { createEmbedding } from "../../embeddings.js";
-import { insertData } from "../../data.js";
+import { generateTextChunks } from "../../utils/splitter.js";
+import { createEmbedding } from "../../adapters/embeddingAdapters.js";
+import { insertData } from "../../adapters/dataAdapters.js";
 
 const router = express.Router();
 
+//swagger documentation for this endpoint for requestbody and responsebody
 /**
  * @swagger
  * /vector/generateEmbeddings:
@@ -21,6 +22,16 @@ const router = express.Router();
  *               3 Days in Prague: A Fairytale Escape with Full Costs & Tips
  *               If there’s one city that truly looks like it leapt out of a storybook, it’s Prague.
  *               ...
+ *     responses:
+ *      200:
+ *        description: Successful response with relevant data
+ *        content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *             properties:
+ *               message:
+ *                type: object
  */
 router.post("/", express.text(), async (req, res) => {
   try {

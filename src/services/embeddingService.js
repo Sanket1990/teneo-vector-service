@@ -1,6 +1,6 @@
-import { geminiAi } from "../config/gemini.js";
+import { geminiAi } from "../../config/gemini.js";
 
-export const createEmbedding = async (textChunk, config = {}) => {
+export const generateEmbedding = async (textChunk) => {
   try {
     const response = await geminiAi.models.embedContent({
       model: "models/embedding-001",
@@ -12,6 +12,7 @@ export const createEmbedding = async (textChunk, config = {}) => {
 
     return { content: textChunk, embedding: response.embeddings[0].values };
   } catch (e) {
-    console.log(e);
+    console.error("Error generating embedding:", e);
+    throw e;
   }
 };

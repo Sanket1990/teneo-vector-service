@@ -1,4 +1,4 @@
-import { CharacterTextSplitter, RecursiveCharacterTextSplitter } from "langchain/text_splitter";
+import { CharacterTextSplitter } from "langchain/text_splitter";
 
 export const generateTextChunks = async (text) => {
   const splitter = new CharacterTextSplitter({

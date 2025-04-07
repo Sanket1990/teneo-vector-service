@@ -1,6 +1,6 @@
 import express from "express";
-import { createEmbedding } from "../../embeddings.js";
-import { getData } from "../../data.js";
+import { createEmbedding } from "../../adapters/embeddingAdapters.js";
+import { getData } from "../../adapters/dataAdapters.js";
 
 const router = express.Router();
 
