@@ -1,8 +1,8 @@
-import { supabase } from "../../config/supabase.js";
+import { supabaseClient } from "../../clients/supabase.js";
 
 export const insertData = async (tableName, data) => {
   try {
-    const { error } = await supabase.from(tableName).insert(data);
+    const { error } = await supabaseClient.from(tableName).insert(data);
 
     if (error) {
       console.error("Error inserting data into Supabase:", error);
@@ -18,7 +18,7 @@ export const insertData = async (tableName, data) => {
 
 export const fetchData = async (queryEmbedding) => {
   try {
-    const { data: documents, error } = await supabase.rpc(
+    const { data: documents, error } = await supabaseClient.rpc(
       "match_content_vectors",
       {
         query_embedding: queryEmbedding,

@@ -1,4 +1,4 @@
-import { geminiAi } from "../../config/gemini.js";
+import { geminiAi } from "../../clients/gemini.js";
 
 export const generateEmbedding = async (textChunk) => {
   try {
