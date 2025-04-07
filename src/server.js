@@ -7,8 +7,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 
 import { swaggerSpec, swaggerUi } from "../config/swagger.js";
-import vectorEndpoints from "./routes/vectorEndpoints.js";
-import healthCheck from "./routes/healthCheck.js";
+import routes from "./routes/index.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -21,11 +20,8 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Use vectorEndpoints router
-app.use("/api/vector", vectorEndpoints);
-
-// Use healthCheck router
-app.use("/api/vector", healthCheck);
+// Use centralized routes
+app.use("/api", routes);
 
 // Start server
 app.listen(port, () => {

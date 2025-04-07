@@ -4,7 +4,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /health-check:
+ * /:
  *   get:
  *     summary: Health check endpoint
  *     description: Returns a message indicating that the server is running.
@@ -19,7 +19,7 @@ const router = express.Router();
  *                 message:
  *                   type: string
  */
-router.get("/health-check", (req, res) => {
+router.get("/", (req, res) => {
   res.json({ message: "Server is running" });
 });
 
