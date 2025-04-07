@@ -6,7 +6,7 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 
-import { swaggerSpec, swaggerUi } from "../clients/swagger.js";
+import { swaggerSpec, swaggerUi } from "../config/swagger.js";
 import routes from "./routes/index.js";
 
 const app = express();
