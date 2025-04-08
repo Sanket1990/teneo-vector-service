@@ -11,12 +11,12 @@ export const consumeCMSEvents = async (onMessage) => {
   channel.consume("cms.documents", async (msg) => {
     try {
       const event = JSON.parse(msg.content.toString());
-      console.log("Event received:", event);
+      console.log("Event received:", event.documentId);
 
       await onMessage(event);
 
       channel.ack(msg);
-      console.log("Message acknowledged:", event);
+      console.log("Message acknowledged:", event.documentId);
     } catch (error) {
       console.error("Error processing message:", error);
     }
