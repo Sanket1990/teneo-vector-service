@@ -1,5 +1,6 @@
 import express from "express";
 import { generateTextChunks } from "../../utils/splitter.js";
+import { processVectorization } from "../../utils/vectorize.js";
 import { createEmbedding } from "../../adapters/embeddingAdapters.js";
 import { insertData } from "../../adapters/dataAdapters.js";
 
@@ -43,16 +44,7 @@ router.post("/", express.text(), async (req, res) => {
         .json({ error: "Text is required in request body" });
     }
 
-    const chunks = await generateTextChunks(text);
-
-    const embeddings = await Promise.all(
-      chunks.map(async (chunk) => {
-        const embedding = await createEmbedding(chunk);
-        return embedding;
-      })
-    );
-
-    await insertData("content_vectors", embeddings);
+    await processVectorization(text);
 
     res.json({ message: "Embeddings created and stored successfully" });
   } catch (error) {

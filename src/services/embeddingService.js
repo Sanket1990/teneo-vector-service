@@ -10,7 +10,7 @@ export const generateEmbedding = async (textChunk) => {
       },
     });
 
-    return { content: textChunk, embedding: response.embeddings[0].values };
+    return { content: textChunk, vector: response.embeddings[0].values };
   } catch (e) {
     console.error("Error generating embedding:", e);
     throw e;

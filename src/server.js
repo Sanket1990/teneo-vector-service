@@ -8,6 +8,14 @@ import bodyParser from "body-parser";
 
 import { swaggerSpec, swaggerUi } from "../config/swagger.js";
 import routes from "./routes/index.js";
+import { consumeBlogEvents } from "../clients/rabbitmq.js";
+import { processVectorization } from "./utils/vectorize.js";
+
+consumeBlogEvents(async (event) => {
+  if (event.type === "BLOG_CREATED") {
+    await processVectorization(event.content, event.documentId);
+  }
+});
 
 const app = express();
 const port = process.env.PORT || 3000;
