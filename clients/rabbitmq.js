@@ -11,7 +11,10 @@ export const consumeCMSEvents = async (onMessage) => {
   channel.consume("cms.documents", async (msg) => {
     try {
       const event = JSON.parse(msg.content.toString());
-      console.log("Event received:", event.documentId);
+      console.log("Event received:", {
+        id: event.documentId,
+        type: event.type,
+      });
 
       await onMessage(event);
 

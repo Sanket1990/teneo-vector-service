@@ -1,6 +1,9 @@
-import { generateTextChunks } from "./splitter.js";
-import { createEmbedding } from "../adapters/embeddingAdapters.js";
-import { insertData } from "../adapters/dataAdapters.js";
+import { generateTextChunks } from "../../../utils/splitter.js";
+import { createEmbedding } from "../../../adapters/embeddingAdapters.js";
+import {
+  insertData,
+  deleteEmbeddingsbyDocumentId,
+} from "../../../adapters/dataAdapters.js";
 
 export const processVectorization = async (text, documentId) => {
   try {
@@ -35,3 +38,11 @@ export const processVectorization = async (text, documentId) => {
     throw error;
   }
 };
+
+export async function deleteEmbeddingsForDocument(documentId) {
+  try {
+    await deleteEmbeddingsbyDocumentId(documentId);
+  } catch (error) {
+    throw error;
+  }
+}

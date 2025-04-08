@@ -38,3 +38,20 @@ export const fetchData = async (queryEmbedding) => {
     throw e;
   }
 };
+
+export async function deleteEmbeddingsbyDocumentId(id) {
+  try {
+    const { error } = await supabaseClient
+      .from("content_vectors")
+      .delete()
+      .eq("document_id", id)
+      .select("id, document_id");
+
+    if (error) {
+      throw error;
+    }
+  } catch (e) {
+    console.error("Error deleting document from database:", e);
+    throw e;
+  }
+}

@@ -1,8 +1,5 @@
 import express from "express";
-import { generateTextChunks } from "../../utils/splitter.js";
-import { processVectorization } from "../../utils/vectorize.js";
-import { createEmbedding } from "../../adapters/embeddingAdapters.js";
-import { insertData } from "../../adapters/dataAdapters.js";
+import { processVectorization } from "./utils/index.js";
 
 const router = express.Router();
 

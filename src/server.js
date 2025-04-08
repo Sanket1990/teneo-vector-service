@@ -9,11 +9,13 @@ import bodyParser from "body-parser";
 import { swaggerSpec, swaggerUi } from "../config/swagger.js";
 import routes from "./routes/index.js";
 import { consumeCMSEvents } from "../clients/rabbitmq.js";
-import { processVectorization } from "./utils/vectorize.js";
+import { processVectorization, deleteEmbeddingsForDocument } from "./routes/vector/utils/index.js";
 
 consumeCMSEvents(async (event) => {
   if (event.type === "CMS_DOC_CREATED") {
     await processVectorization(event.content, event.documentId);
+  } else if (event.type === "CMS_DOC_DELETED") {
+    await deleteEmbeddingsForDocument(event.documentId);
   }
 });
 
