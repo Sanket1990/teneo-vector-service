@@ -8,11 +8,11 @@ import bodyParser from "body-parser";
 
 import { swaggerSpec, swaggerUi } from "../config/swagger.js";
 import routes from "./routes/index.js";
-import { consumeBlogEvents } from "../clients/rabbitmq.js";
+import { consumeCMSEvents } from "../clients/rabbitmq.js";
 import { processVectorization } from "./utils/vectorize.js";
 
-consumeBlogEvents(async (event) => {
-  if (event.type === "BLOG_CREATED") {
+consumeCMSEvents(async (event) => {
+  if (event.type === "CMS_DOC_CREATED") {
     await processVectorization(event.content, event.documentId);
   }
 });
