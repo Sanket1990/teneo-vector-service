@@ -18,10 +18,11 @@ export const processVectorization = async (text, documentId) => {
     const chunks = await generateTextChunks(text);
 
     const embeddings = await Promise.all(
-      chunks.map(async (chunk) => {
+      chunks.map(async (chunk, index) => {
         const embedding = await createEmbedding(chunk);
         return {
           content: chunk,
+          chunk_index: index,
           embedding: embedding.vector,
           ...(documentId ? { document_id: documentId } : {}),
         };
