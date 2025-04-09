@@ -6,7 +6,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /vector/getEmbeddings:
+ * /embeddings/list:
  *   post:
  *     summary: Get embeddings for a query
  *     description: Accepts a query string, generates its vector embedding, and retrieves relevant data from the Supabase database.

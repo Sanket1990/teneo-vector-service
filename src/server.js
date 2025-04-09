@@ -9,7 +9,7 @@ import bodyParser from "body-parser";
 import { swaggerSpec, swaggerUi } from "../config/swagger.js";
 import routes from "./routes/index.js";
 import { consumeCMSEvents } from "../clients/rabbitmq.js";
-import { processVectorization, deleteEmbeddingsForDocument } from "./routes/vector/utils/index.js";
+import { processVectorization, deleteEmbeddingsForDocument } from "./routes/embedding/utils/index.js";
 
 consumeCMSEvents(async (event) => {
   if (event.type === "CMS_DOC_CREATED") {
@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Use centralized routes
-app.use("/api", routes);
+app.use("/api/vector", routes);
 
 // Start server
 app.listen(port, () => {

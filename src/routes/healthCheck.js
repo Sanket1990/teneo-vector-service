@@ -4,7 +4,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /:
+ * /health:
  *   get:
  *     summary: Health check endpoint
  *     description: Returns a message indicating that the server is running.

@@ -11,7 +11,7 @@ const swaggerOptions = {
     },
     servers: [
       {
-        url: "http://localhost:3000/api", // Updated base path for all endpoints
+        url: "http://localhost:3000/api/vector", // Updated base path for all endpoints
       },
     ],
   },

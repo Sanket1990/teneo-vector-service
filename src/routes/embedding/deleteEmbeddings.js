@@ -5,7 +5,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /vector/delete:
+ * /embeddings/delete:
  *   post:
  *     summary: Delete vector embeddings for a specific document
  *     description: Deletes the vector embeddings associated with the specified document ID from the Supabase database.

@@ -3,10 +3,9 @@ import { processVectorization } from "./utils/index.js";
 
 const router = express.Router();
 
-//swagger documentation for this endpoint for requestbody and responsebody
 /**
  * @swagger
- * /vector/generateEmbeddings:
+ * /embeddings:
  *   post:
  *     summary: Process text and store vector embeddings
  *     description: Accepts raw plain text input, splits it into chunks, generates vector embeddings, and stores them in the Supabase database.
